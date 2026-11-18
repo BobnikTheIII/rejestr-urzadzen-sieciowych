@@ -1,0 +1,37 @@
+% ********** Rozdział 4 **********
+\chapter{Budowa programu}\label{ch:budowa}
+
+\section{Podział na warstwy}
+
+Cały kod znajduje się w~klasach. Metoda \texttt{Main} jedynie tworzy obiekty programu i~uruchamia główną pętlę menu. Program składa się z~czterech przestrzeni nazw, przedstawionych w~tabeli \ref{tab:warstwy}.
+
+\begin{table}[H]
+	\begin{center}
+		\caption{\footnotesize Przestrzenie nazw programu}
+		\label{tab:warstwy}
+		\begin{small}
+			\begin{tabular}{|l|p{11.5cm}|} \hline
+				\textbf{Przestrzeń nazw} & \textbf{Odpowiedzialność} \\ \hline
+				\texttt{Domain} & Model urządzeń i~reguły poprawności pojedynczych pól. \\ \hline
+				\texttt{Persistence} & Trwały zapis i~odczyt danych w~pliku JSON. \\ \hline
+				\texttt{Services} & Operacje CRUD, reguła unikalności nazw i~adresów IP, podsumowanie. \\ \hline
+				\texttt{Ui} & Komunikacja z~użytkownikiem: menu, formularz, tabela i~polecenia menu. \\ \hline
+			\end{tabular}
+		\end{small}
+	\end{center}
+\end{table}
+
+\section{Zastosowanie zasad programowania obiektowego}
+
+\begin{description}
+	\item[Dziedziczenie.] Abstrakcyjna klasa \texttt{Device} zawiera cechy wspólne, a~klasy \texttt{Router}, \texttt{NetworkSwitch}, \texttt{AccessPoint} i~\texttt{Server} dodają pola właściwe dla swojego typu. Podobnie po klasie \texttt{MenuCommand} dziedziczy każde polecenie menu, a~po \texttt{DeviceField} -- każdy rodzaj pola.
+	\item[Polimorfizm.] Każdy typ urządzenia nadpisuje metodę \texttt{GetSpecificFields}, zwracającą jego pola jako obiekty \texttt{DeviceField}. Formularz, widok szczegółów i~wyszukiwarka korzystają wyłącznie z~tej abstrakcji, dzięki czemu nie zawierają instrukcji warunkowych zależnych od typu urządzenia. Menu główne wywołuje natomiast metodę \texttt{Execute} na liście obiektów \texttt{MenuCommand}.
+	\item[Hermetyzacja.] Właściwości modelu sprawdzają wartości w~swoich metodach dostępowych, więc obiekt nie może przyjąć wartości niezgodnej z~regułami, także przy odczycie z~pliku. Identyfikator nadaje wyłącznie warstwa zapisu danych. Repozytorium zwraca kopie obiektów, dlatego zmiany trafiają do rejestru dopiero po jawnym zapisie -- na tym opiera się anulowanie edycji.
+	\item[Abstrakcja.] Interfejs \texttt{IDeviceRepository} oddziela logikę programu od sposobu przechowywania danych. Zastąpienie pliku JSON bazą danych wymagałoby tylko nowej klasy implementującej ten interfejs oraz zmiany jednego wiersza w~klasie \texttt{Program}.
+\end{description}
+
+\section{Bezpieczeństwo zapisu}
+
+Klasa \texttt{JsonDeviceRepository} zapisuje dane najpierw do pliku tymczasowego, a~następnie zastępuje nim właściwy plik. Przerwanie programu podczas zapisu nie uszkadza więc istniejących danych. Stan w~pamięci zmienia się dopiero po udanym zapisie, dlatego program nie pokazuje zmian, które nie trafiły na dysk.
+
+% ********** Koniec rozdziału **********

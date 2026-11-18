@@ -1,0 +1,58 @@
+% ********** Rozdział 1 **********
+\chapter{Ogólny opis programu}\label{ch:opis}
+
+\section{Przeznaczenie programu}
+
+Program służy do prowadzenia ewidencji urządzeń sieciowych, takich jak routery, przełączniki, punkty dostępowe i~serwery. Dla każdego urządzenia przechowuje jego nazwę, adres IP, lokalizację i~status, a~także parametry właściwe dla danego typu sprzętu. Może z~niego korzystać na przykład administrator małej sieci, który chce w~jednym miejscu sprawdzić, jaki sprzęt posiada, gdzie się on znajduje i~jakie adresy są już zajęte.
+
+\section{Cel powstania}
+
+Program powstał jako projekt zaliczeniowy z~przedmiotu ,,Programowanie obiektowe''. Jego celem jest praktyczne zastosowanie dziedziczenia, polimorfizmu, hermetyzacji i~abstrakcji w~aplikacji wykonującej trwałe operacje CRUD. Tematyka sieci komputerowych dobrze się do tego nadaje: różne typy urządzeń mają część cech wspólnych i~część odmiennych, co naturalnie prowadzi do hierarchii klas.
+
+\section{Funkcje programu}
+
+Program udostępnia następujące funkcje, wybierane z~menu głównego:
+
+\begin{enumerate}
+	\item \textbf{Dodaj urządzenie} (Create) -- wprowadzenie nowego urządzenia wybranego typu.
+	\item \textbf{Lista urządzeń} (Read) -- wyświetlenie całego rejestru w~formie tabeli.
+	\item \textbf{Szczegóły urządzenia} (Read) -- wyświetlenie wszystkich pól wskazanego urządzenia.
+	\item \textbf{Wyszukaj urządzenia} (Read) -- wyszukiwanie tekstu we wszystkich polach urządzeń.
+	\item \textbf{Edytuj urządzenie} (Update) -- zmiana wybranych pól istniejącego urządzenia.
+	\item \textbf{Usuń urządzenie} (Delete) -- usunięcie urządzenia po potwierdzeniu.
+	\item \textbf{Podsumowanie rejestru} -- liczba urządzeń ogółem oraz według typu i~statusu.
+\end{enumerate}
+
+Każda zmiana jest zapisywana na dysku natychmiast po jej zatwierdzeniu, bez potrzeby osobnego polecenia zapisu.
+
+\section{Przechowywane dane}
+
+Tabela \ref{tab:pola} przedstawia pola urządzeń. Pola wspólne występują w~każdym typie urządzenia, a~pozostałe zależą od wybranego typu.
+
+\begin{table}[H]
+	\begin{center}
+		\caption{\footnotesize Pola urządzeń i~reguły ich poprawności}
+		\label{tab:pola}
+		\begin{small}
+			\begin{tabular}{|l|l|l|} \hline
+				\textbf{Typ} & \textbf{Pole} & \textbf{Dopuszczalne wartości} \\ \hline
+				Wszystkie & Nazwa & 1--40 znaków, unikalna w~rejestrze \\ \cline{2-3}
+				& Adres IP & poprawny adres IPv4 lub IPv6, unikalny w~rejestrze \\ \cline{2-3}
+				& Lokalizacja & 1--40 znaków \\ \cline{2-3}
+				& Status & Aktywne, W~magazynie, W~serwisie, Wycofane \\ \cline{2-3}
+				& Uwagi & opcjonalne, do 200 znaków \\ \hline
+				Router & Porty WAN & liczba 1--64 \\ \cline{2-3}
+				& Obsługa VPN & tak lub nie \\ \hline
+				Przełącznik & Liczba portów & liczba 1--256 \\ \cline{2-3}
+				& Zarządzalny & tak lub nie \\ \hline
+				Punkt dostępowy & SSID & 1--32 znaki \\ \cline{2-3}
+				& Pasmo & 2,4 GHz; 5 GHz; 6 GHz; 2,4 + 5 GHz; 2,4 + 5 + 6 GHz \\ \hline
+				Serwer & Rdzenie CPU & liczba 1--1024 \\ \cline{2-3}
+				& RAM [GB] & liczba 1--65536 \\ \cline{2-3}
+				& System operacyjny & 1--40 znaków \\ \hline
+			\end{tabular}
+		\end{small}
+	\end{center}
+\end{table}
+
+% ********** Koniec rozdziału **********

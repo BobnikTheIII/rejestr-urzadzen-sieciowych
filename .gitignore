@@ -1,0 +1,30 @@
+bin/
+obj/
+.vs/
+*.user
+
+# Pomocnicze pliki LaTeX-a
+*.aux
+*.log
+*.toc
+*.out
+*.lof
+*.lot
+*.lol
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Materiały od prowadzącego - poza repozytorium
+/szablon/
+/polecenia projektowe.txt
+
+# Paczki na Moodle - poza repozytorium
+/*.zip
+/*.pdf
+
+# Pamięć podręczna Pythona
+__pycache__/
+
+# Wzorcowe zrzuty z Konsole - materiał roboczy
+/obrazyDoPodstawienia/

@@ -1,0 +1,67 @@
+% **** Dokumentacja projektu -- Programowanie obiektowe ****
+
+\documentclass[polish,12pt,twoside,a4paper]{report}
+\renewcommand{\baselinestretch}{1.15}
+
+\input{style.tex}
+
+% *************** Pakiety dodatkowe ***************
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\lstset{
+	basicstyle=\ttfamily\footnotesize,
+	frame=single,
+	breaklines=true,
+	showstringspaces=false,
+	backgroundcolor=\color{black!5},
+	literate=
+		{ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1
+		{ó}{{\'o}}1 {ś}{{\'s}}1 {ź}{{\'z}}1 {ż}{{\.z}}1
+		{Ą}{{\k{A}}}1 {Ć}{{\'C}}1 {Ę}{{\k{E}}}1 {Ł}{{\L{}}}1 {Ń}{{\'N}}1
+		{Ó}{{\'O}}1 {Ś}{{\'S}}1 {Ź}{{\'Z}}1 {Ż}{{\.Z}}1
+}
+
+% Zrzut ekranu: \zrzut{plik}{podpis}
+\newcommand{\zrzut}[2]{%
+	\begin{figure}[H]
+		\centering
+		\caption{\footnotesize #2}
+		\label{fig:#1}
+		\includegraphics[width=15.5cm]{figures/#1.png}
+	\end{figure}%
+}
+
+% *************** Dane do strony tytułowej ***************
+\newcommand{\wydzial}{KOLEGIUM INFORMATYKI STOSOWANEJ}
+\newcommand{\kierunek}{Kierunek: INFORMATYKA}
+\newcommand{\specjalnosc}{}
+\newcommand{\autor}{Adam Techman}
+\newcommand{\album}{Nr albumu studenta 73285}
+\newcommand{\nauczyciel}{mgr inż.~Adrian Hałys}
+\newcommand{\tematprojektu}{Rejestr urządzeń sieciowych}
+\newcommand{\miasto}{Rzeszów}
+\newcommand{\przedmiot}{Programowanie obiektowe}
+\newcommand{\rok}{2026}
+\newcommand{\repozytorium}{https://github.com/BobnikTheIII/rejestr-urzadzen-sieciowych}
+
+\begin{document}
+
+% *************** Strona tytułowa i spis treści ***************
+\input{front.tex}
+
+% *************** Część główna ***************
+\input{wstep.tex}
+\addcontentsline{toc}{chapter}{Wstęp}
+\newpage
+\input{R1.tex}
+\newpage
+\input{R2.tex}
+\newpage
+\input{R3.tex}
+\newpage
+\input{R4.tex}
+\end{document}
+% *************** Koniec pliku dokumentacja.tex ***************

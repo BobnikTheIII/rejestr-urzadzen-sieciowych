@@ -1,0 +1,63 @@
+% ********** Rozdział 2 **********
+\chapter{Użyte narzędzia i~kod źródłowy}\label{ch:narzedzia}
+
+\section{Wykaz narzędzi}
+
+Program korzysta wyłącznie z~platformy .NET i~jej biblioteki standardowej. Nie wymaga żadnych dodatkowych pakietów NuGet ani serwera bazy danych. Tabela \ref{tab:narzedzia} zawiera pełny wykaz narzędzi.
+
+\begin{table}[H]
+	\begin{center}
+		\caption{\footnotesize Wykaz użytych narzędzi}
+		\label{tab:narzedzia}
+		\begin{small}
+			\begin{tabular}{|l|p{10.5cm}|} \hline
+				\textbf{Narzędzie} & \textbf{Zastosowanie} \\ \hline
+				.NET 9 SDK, język C\# & Kompilacja i~uruchamianie programu. \\ \hline
+				System.Text.Json & Zapis i~odczyt danych w~formacie JSON; biblioteka wchodzi w~skład platformy .NET. \\ \hline
+				Plik JSON & Trwałe przechowywanie danych; baza danych nie jest używana. \\ \hline
+				Git, GitHub & Kontrola wersji i~udostępnienie kodu źródłowego. \\ \hline
+				LaTeX (pdfTeX) & Przygotowanie tej dokumentacji na podstawie szablonu uczelnianego. \\ \hline
+				Python (Pillow, numpy), Google Chrome & Automatyczne wykonanie zrzutów ekranu do dokumentacji (skrypt \texttt{dokumentacja/narzedzia/zrzuty.py}, opis w~pliku \texttt{ZRZUTY.md}). Nie są potrzebne do działania programu. \\ \hline
+			\end{tabular}
+		\end{small}
+	\end{center}
+\end{table}
+
+\section{Repozytorium z~kodem źródłowym}
+
+Kod źródłowy projektu wraz ze źródłami tej dokumentacji znajduje się w~repozytorium:
+
+\begin{center}
+	\url{\repozytorium}
+\end{center}
+
+\section{Uruchomienie programu}
+
+Do uruchomienia programu potrzebny jest zainstalowany pakiet .NET 9 SDK. Po pobraniu repozytorium program uruchamia się z~jego głównego katalogu poleceniami:
+
+\begin{lstlisting}
+git clone https://github.com/BobnikTheIII/rejestr-urzadzen-sieciowych.git
+cd rejestr-urzadzen-sieciowych
+dotnet run --project src/RejestrUrzadzen
+\end{lstlisting}
+
+Program można też otworzyć w~środowisku Visual Studio za pomocą pliku \texttt{RejestrUrzadzen.sln}.
+
+\subsection{Położenie pliku danych}
+
+Domyślnie dane są zapisywane w~pliku \texttt{urzadzenia.json} w~katalogu danych aplikacji bieżącego użytkownika:
+
+\begin{itemize}
+	\item Windows: \texttt{\%LOCALAPPDATA\%\textbackslash RejestrUrzadzen\textbackslash urzadzenia.json},
+	\item Linux: \texttt{\textasciitilde/.local/share/RejestrUrzadzen/urzadzenia.json}.
+\end{itemize}
+
+Inny plik można wskazać jako argument programu. Jeśli plik nie istnieje, zostanie utworzony przy pierwszym zapisie:
+
+\begin{lstlisting}
+dotnet run --project src/RejestrUrzadzen -- moj_rejestr.json
+\end{lstlisting}
+
+Ścieżka używanego pliku jest zawsze widoczna w~menu głównym.
+
+% ********** Koniec rozdziału **********

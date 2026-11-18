@@ -1,0 +1,141 @@
+% ********** Rozdział 3 **********
+\chapter{Instrukcja obsługi}\label{ch:instrukcja}
+
+Zrzuty ekranu w~tym rozdziale wykonano automatycznie podczas pracy z~programem: skrypt \texttt{zrzuty.py} uruchomił skompilowany program w~terminalu o~szerokości 100 znaków, wpisał podane dane i~zapisał zawartość ekranu jako obraz w~wyglądzie emulatora terminala Konsole (schemat kolorów Breeze, czcionka Noto Sans Mono) z~systemu Nobara Linux. Rejestr był na początku pusty, dlatego kolejne zrzuty pokazują skutki wcześniejszych operacji. Program wywoływano ze ścieżką względną \texttt{urzadzenia.json}, stąd taka nazwa pliku w~menu.
+
+\section{Menu główne}
+
+Po uruchomieniu program wyświetla menu główne (rysunek \ref{fig:menu}). Nad listą opcji widoczna jest ścieżka używanego pliku danych. Aby wybrać funkcję, należy wpisać jej numer i~nacisnąć Enter.
+
+\zrzut{menu}{Menu główne programu}
+
+Po wykonaniu funkcji program czeka na naciśnięcie klawisza Enter, a~następnie wraca do menu. Wpisanie numeru spoza listy powoduje wyświetlenie komunikatu o~błędzie (rysunek \ref{fig:menu_blad}).
+
+\zrzut{menu_blad}{Reakcja na wybór nieistniejącej opcji}
+
+\section{Dodawanie urządzenia}
+
+Funkcja \textbf{1. Dodaj urządzenie} tworzy nowy wpis w~rejestrze. Należy kolejno:
+
+\begin{enumerate}
+	\item wybrać typ urządzenia, podając jego numer,
+	\item podać wartości kolejnych pól; w~nawiasach kwadratowych program podpowiada dopuszczalne wartości,
+	\item przy polu \textit{Status} oraz \textit{Pasmo} podać numer z~listy lub pełną nazwę wartości,
+	\item przy polach typu tak/nie wpisać \texttt{t} lub \texttt{n},
+	\item przy opcjonalnym polu \textit{Uwagi} wpisać tekst lub nacisnąć Enter, aby je pominąć.
+\end{enumerate}
+
+Po podaniu ostatniego pola urządzenie zostaje zapisane w~pliku, a~program pokazuje nadany mu identyfikator. Identyfikatory nadawane są automatycznie i~nie są używane ponownie, nawet po usunięciu urządzenia. Zestaw pól zależy od typu urządzenia, co pokazują rysunki od \ref{fig:dodaj_router} do \ref{fig:dodaj_serwer}.
+
+\zrzut{dodaj_router}{Dodawanie routera}
+\zrzut{dodaj_przelacznik}{Dodawanie przełącznika}
+\zrzut{dodaj_ap}{Dodawanie punktu dostępowego}
+\zrzut{dodaj_serwer}{Dodawanie serwera}
+
+\subsection{Niepoprawne dane i~anulowanie}
+
+Każda wartość jest sprawdzana od razu po wpisaniu. Gdy jest niepoprawna, program wyświetla przyczynę na czerwono i~ponawia pytanie o~to samo pole, nie tracąc wcześniej podanych danych. Program odrzuca między innymi puste pole wymagane, nazwę lub adres IP zajęty przez inne urządzenie, niepełny adres IP oraz liczbę spoza zakresu. W~każdym momencie można wpisać znak \texttt{!}, aby anulować operację. Urządzenie nie zostanie wtedy dodane. Rysunek \ref{fig:dodaj_anuluj} przedstawia oba te zachowania.
+
+\zrzut{dodaj_anuluj}{Odrzucanie niepoprawnych wartości i~anulowanie dodawania}
+
+\section{Lista urządzeń}
+
+Funkcja \textbf{2. Lista urządzeń} wyświetla wszystkie urządzenia w~kolejności identyfikatorów, wraz z~ich liczbą (rysunek \ref{fig:lista}). Wartości zbyt długie dla szerokości okna konsoli są skracane i~kończą się znakiem wielokropka; pełną wartość pokazuje funkcja szczegółów. Gdy rejestr jest pusty, program informuje o~tym zamiast wyświetlać tabelę (rysunek \ref{fig:lista_pusta}).
+
+\zrzut{lista}{Lista urządzeń}
+\zrzut{lista_pusta}{Lista przy pustym rejestrze}
+
+\section{Szczegóły urządzenia}
+
+Funkcja \textbf{3. Szczegóły urządzenia} pokazuje wszystkie pola jednego urządzenia, w~tym pola właściwe dla jego typu. Program wyświetla listę urządzeń i~prosi o~podanie identyfikatora. Jeśli podany tekst nie jest liczbą lub urządzenie o~takim identyfikatorze nie istnieje, program zgłasza błąd i~pyta ponownie. Znak \texttt{!} pozwala wrócić do menu. Niewypełnione pole jest oznaczone znakiem \texttt{-} (rysunek \ref{fig:szczegoly}).
+
+\zrzut{szczegoly}{Szczegóły urządzenia, poprzedzone dwiema niepoprawnymi próbami podania identyfikatora}
+
+\section{Wyszukiwanie urządzeń}
+
+Funkcja \textbf{4. Wyszukaj urządzenia} wyświetla urządzenia, których typ lub dowolne pole zawiera podany tekst. Wielkość liter nie ma znaczenia. Przeszukiwane są także pola właściwe dla danego typu, na przykład SSID lub system operacyjny. Rysunek \ref{fig:szukaj_lokalizacja} przedstawia wyszukiwanie po lokalizacji, a~rysunek \ref{fig:szukaj_pole_typu} -- po systemie operacyjnym serwera. Gdy nic nie pasuje, program wyświetla stosowny komunikat (rysunek \ref{fig:szukaj_brak}).
+
+\zrzut{szukaj_lokalizacja}{Wyszukiwanie po lokalizacji}
+\zrzut{szukaj_pole_typu}{Wyszukiwanie po polu właściwym dla typu urządzenia}
+\zrzut{szukaj_brak}{Wyszukiwanie bez wyników}
+
+\section{Edycja urządzenia}
+
+Funkcja \textbf{5. Edytuj urządzenie} pozwala zmienić pola istniejącego urządzenia. Po wskazaniu identyfikatora program pyta kolejno o~każde pole, pokazując jego obecną wartość. Dla każdego pola można:
+
+\begin{itemize}
+	\item wpisać nową wartość -- obowiązują te same reguły co przy dodawaniu,
+	\item nacisnąć Enter, aby zachować obecną wartość,
+	\item wpisać \texttt{-} przy polu \textit{Uwagi}, aby je wyczyścić,
+	\item wpisać \texttt{!}, aby anulować edycję całego urządzenia.
+\end{itemize}
+
+Zmiany są zapisywane dopiero po przejściu przez wszystkie pola. Rysunek \ref{fig:edycja} przedstawia zmianę lokalizacji, statusu, SSID oraz uwag urządzenia nr 3, a~rysunek \ref{fig:edycja_wynik} -- jego stan po zapisaniu.
+
+\zrzut{edycja}{Edycja urządzenia}
+\zrzut{edycja_wynik}{Szczegóły urządzenia po edycji}
+
+Typu urządzenia ani jego identyfikatora nie można zmienić. Nazwa i~adres IP nadal muszą być unikalne, przy czym urządzenie może zachować własne wartości. Rysunek \ref{fig:edycja_konflikt} przedstawia próbę użycia nazwy innego urządzenia, a~następnie anulowanie edycji.
+
+\zrzut{edycja_konflikt}{Odrzucenie zajętej nazwy i~anulowanie edycji}
+
+\section{Usuwanie urządzenia}
+
+Funkcja \textbf{6. Usuń urządzenie} trwale usuwa urządzenie z~rejestru. Po wskazaniu identyfikatora program pokazuje dane urządzenia i~prosi o~potwierdzenie. Odpowiedź \texttt{t} usuwa je (rysunek \ref{fig:usun}), a~odpowiedź \texttt{n} pozostawia rejestr bez zmian (rysunek \ref{fig:usun_rezygnacja}).
+
+\zrzut{usun_rezygnacja}{Rezygnacja z~usunięcia urządzenia}
+\zrzut{usun}{Usunięcie urządzenia po potwierdzeniu}
+
+\section{Podsumowanie rejestru}
+
+Funkcja \textbf{7. Podsumowanie rejestru} podaje łączną liczbę urządzeń oraz ich liczbę według typu i~statusu (rysunek \ref{fig:podsumowanie}). Rejestr zawiera tu cztery urządzenia, ponieważ jedno z~pięciu dodanych zostało wcześniej usunięte.
+
+\zrzut{podsumowanie}{Podsumowanie rejestru}
+
+\section{Zakończenie pracy}
+
+Opcja \textbf{0. Wyjście} kończy działanie programu (rysunek \ref{fig:wyjscie}). Dane są już wtedy zapisane, ponieważ każda zmiana trafia do pliku od razu.
+
+\zrzut{wyjscie}{Zakończenie pracy programu}
+
+\section{Trwałość danych}
+
+Rysunek \ref{fig:trwalosc} przedstawia listę urządzeń zaraz po ponownym uruchomieniu programu. Widoczne są dane po wcześniejszej edycji i~usunięciu, co potwierdza, że zmiany przetrwały zakończenie procesu.
+
+\zrzut{trwalosc}{Lista urządzeń po ponownym uruchomieniu programu}
+
+Rysunek \ref{fig:trwalosc_id} pokazuje stan po dodaniu kolejnego urządzenia i~następnym uruchomieniu. Nowe urządzenie otrzymało identyfikator 6, a~nie 5, ponieważ identyfikator usuniętego urządzenia nie jest używany ponownie.
+
+\zrzut{trwalosc_id}{Identyfikator usuniętego urządzenia nie wraca do użycia}
+
+\subsection{Format pliku danych}
+
+Dane są przechowywane w~czytelnym pliku JSON. Pole \texttt{type} określa typ urządzenia, a~\texttt{nextId} -- identyfikator kolejnego urządzenia. Listing \ref{lst:json} przedstawia początek pliku z~opisanej sesji.
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Początek pliku danych},label={lst:json}]
+{
+  "nextId": 6,
+  "devices": [
+    {
+      "type": "router",
+      "wanPorts": 2,
+      "supportsVpn": true,
+      "id": 1,
+      "name": "rtr-brzeg-01",
+      "ipAddress": "192.168.0.1",
+      "location": "Serwerownia A",
+      "status": "Active",
+      "notes": "Główny router brzegowy"
+    },
+\end{lstlisting}
+\end{minipage}
+
+\subsection{Uszkodzony plik danych}
+
+Jeśli pliku nie da się poprawnie odczytać, program wyświetla komunikat i~kończy działanie, nie zmieniając pliku (rysunek \ref{fig:plik_uszkodzony}). Dotyczy to między innymi niepoprawnej składni JSON, braku wymaganego pola, wartości niezgodnej z~regułami z~tabeli \ref{tab:pola} oraz powtórzonych identyfikatorów. Plik można wtedy naprawić ręcznie lub wskazać inny jako argument programu. Jeśli natomiast nie uda się zapisać zmiany, na przykład z~powodu braku uprawnień, program wyświetla błąd i~pracuje dalej, a~dane w~pliku pozostają w~poprzednim stanie.
+
+\zrzut{plik_uszkodzony}{Komunikat o~uszkodzonym pliku danych}
+
+% ********** Koniec rozdziału **********

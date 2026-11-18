@@ -1,0 +1,50 @@
+{
+  "nextId": 6,
+  "devices": [
+    {
+      "type": "router",
+      "wanPorts": 2,
+      "supportsVpn": true,
+      "id": 1,
+      "name": "rtr-brzeg-01",
+      "ipAddress": "192.168.0.1",
+      "location": "Serwerownia A",
+      "status": "Active",
+      "notes": "Główny router brzegowy"
+    },
+    {
+      "type": "switch",
+      "portCount": 48,
+      "isManaged": true,
+      "id": 2,
+      "name": "sw-rdzen-01",
+      "ipAddress": "192.168.0.2",
+      "location": "Serwerownia A",
+      "status": "Active",
+      "notes": ""
+    },
+    {
+      "type": "accessPoint",
+      "ssid": "Kampus-Pracownicy",
+      "band": "DualBand",
+      "id": 3,
+      "name": "ap-parter-01",
+      "ipAddress": "192.168.10.11",
+      "location": "Pierwsze piętro",
+      "status": "InService",
+      "notes": "Po przeniesieniu"
+    },
+    {
+      "type": "server",
+      "cpuCores": 16,
+      "ramGb": 64,
+      "operatingSystem": "Debian 13",
+      "id": 4,
+      "name": "srv-pliki-01",
+      "ipAddress": "192.168.0.20",
+      "location": "Serwerownia B",
+      "status": "Active",
+      "notes": "Serwer plików"
+    }
+  ]
+}
